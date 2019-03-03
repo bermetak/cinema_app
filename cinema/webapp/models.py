@@ -38,7 +38,7 @@ class Show(models.Model):
     hall = models.ForeignKey(Hall, on_delete=models.PROTECT)
     start = models.DateTimeField()
     end = models.DateTimeField()
-    price = models.DecimalField(max_digits=3, decimal_places=2)
+    price = models.DecimalField(max_digits=5, decimal_places=2)
 
     def __str__(self):
         return self.movie

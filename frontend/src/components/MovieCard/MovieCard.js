@@ -3,14 +3,14 @@ import Card from "../UI/Card/Card";
 
 
 const MovieCard = props => {
-    const {movie, className} = props;
+    const {movie} = props;
     const {name, poster, id} = movie;
-    const link = {
-        text: 'Read more',
-        url: '/movies/' + id
-    };
+    // const link = {
+    //     text: 'Read more',
+    //     url:
+    // };
 
-    return <Card header={name} image={poster} link={link} className='h-100'/>;
+    return <Card header={name} image={poster} linkText={'Read more'} linkUrl={'/movies/' + id} className='h-100'/>;
 };
 
 

@@ -46,7 +46,6 @@ class MovieEdit extends Component {
             const value = movie[key];
             if (value) {
                 if (Array.isArray(value)) {
-                    let a = []
                     // для полей с несколькими значениями (категорий)
                     // нужно добавить каждое значение отдельно
                     value.forEach(item => {formData.append(key, item)

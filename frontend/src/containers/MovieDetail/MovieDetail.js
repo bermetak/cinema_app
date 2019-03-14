@@ -52,7 +52,7 @@ class MovieDetail extends Component {
 
         return <div>
             {poster ? <div className='text-center'>
-                <img className="img-fluid rounded" src={poster}/>
+                <img className="img-fluid rounded" src={poster} alt='Постер'/>
             </div> : null}
 
             <h1>{name}</h1>

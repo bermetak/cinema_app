@@ -3,31 +3,20 @@ import axios from "axios";
 import {HALL_URL} from "../../urls";
 
 
-class HallEdit extends Component {
+class HallAdd extends Component {
     state = {
-        hall: null,
-
+        hall: {name: '', description: ''},
         alert: null,
         submitEnabled: true,
     };
 
-    componentDidMount() {
-
-        axios.get(HALL_URL + this.props.match.params.id)
-            .then(response => {
-                const hall = response.data;
-                console.log(hall);
-                this.setState(prevState => {
-                    const newState = {...prevState};
-                    newState.hall = hall;
-                    return newState;
-                });
-            })
-            .catch(error => {
-                console.log(error);
-                console.log(error.response);
-            });
-    }
+    showErrorAlert = (error) => {
+        this.setState(prevState => {
+            let newState = {...prevState};
+            newState.alert = {type: 'danger', message: `Hall was not added!`};
+            return newState;
+        });
+    };
 
 
     updateHallState = (fieldName, value) => {
@@ -41,17 +30,9 @@ class HallEdit extends Component {
         });
     };
 
-    showErrorAlert = (error) => {
-        this.setState(prevState => {
-            let newState = {...prevState};
-            newState.alert = {type: 'danger', message: `Hall was not edited!`};
-            return newState;
-        });
-    };
-
     gatherFormData = () => {
         let formData = new FormData();
-        let hall = this.state.hall
+        let hall = this.state.hall;
         Object.keys(hall).forEach(key => {
             const value = hall[key];
             if (value) {
@@ -64,11 +45,11 @@ class HallEdit extends Component {
     formSubmitted = () => {
         const formData = this.gatherFormData();
         console.log();
-        return axios.put(HALL_URL + this.props.match.params.id + '/', formData)
+        return axios.post(HALL_URL, formData)
             .then(response => {
                 const hall = response.data;
                 console.log(hall);
-                this.props.history.push('/halls/');
+                this.props.history.push('/halls/' + hall.id);
             })
             .catch(error => {
                 console.log(error);
@@ -85,7 +66,7 @@ class HallEdit extends Component {
 
 
     render() {
-        if (!this.state.hall) return null;
+
         const alert = this.state.alert;
         const {name, description} = this.state.hall;
         return <Fragment>
@@ -111,4 +92,4 @@ class HallEdit extends Component {
 }
 
 
-export default HallEdit
+export default HallAdd

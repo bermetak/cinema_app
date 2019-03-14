@@ -31,7 +31,7 @@ class HallSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Hall
-        fields = ('url', 'id', 'name', 'description')
+        fields = ('url', 'id', 'name', 'description', 'is_deleted')
 
 class SeatSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='api_v1:seat-detail')

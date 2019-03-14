@@ -13,7 +13,6 @@ class SoftDeleteManager(models.Manager):
         return self.filter(is_deleted=True)
 
 
-# Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(max_length=2000, null=True, blank=True)
@@ -47,6 +46,9 @@ class Movie(models.Model):
 class Hall(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(max_length=2000, null=True, blank=True)
+    is_deleted = models.BooleanField(default=False)
+
+    objects = SoftDeleteManager()
 
     def __str__(self):
         return self.name

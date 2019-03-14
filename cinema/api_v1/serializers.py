@@ -1,15 +1,26 @@
 from webapp.models import Movie, Category, Hall, Seat, Show, Discount, Ticket, Reservation
 from rest_framework import serializers
 
-class MovieSerializer(serializers.ModelSerializer):
+
+class InlineCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ('id', 'name')
+
+
+class MovieCreateSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='api_v1:movie-detail')
 
     class Meta:
         model = Movie
         fields = ('url', 'id', 'name', 'description', 'poster', 'release_date', 'finish_date', 'categories', 'is_deleted')
 
+
+class MovieSerializer(MovieCreateSerializer):
+    categories = InlineCategorySerializer(many=True, read_only=True)
+
 class CategorySerializer(serializers.ModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='api_v1:categories-detail')
+    url = serializers.HyperlinkedIdentityField(view_name='api_v1:category-detail')
 
     class Meta:
         model = Category

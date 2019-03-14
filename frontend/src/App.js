@@ -16,7 +16,7 @@ class App extends Component {
                         <Route path="/movies/add" component={MovieAdd}/>
                         <Route path="/movies/:id/edit" component={MovieEdit}/>
                         <Route path="/movies/:id" component={MovieDetail}/>
-                        <Route path="/" component={MovieList}/>
+                        <Route path="" component={MovieList}/>
                     </Switch>
                 </BrowserRouter>
             </div>

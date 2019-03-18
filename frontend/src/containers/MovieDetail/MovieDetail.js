@@ -1,25 +1,28 @@
 import React, {Component} from 'react'
-import {MOVIES_URL} from "../../urls";
+import {MOVIES_URL, SHOWS_URL} from "../../urls";
 import {NavLink} from "react-router-dom";
 import MovieCategories from "../../components/MovieCategories/MovieCategories";
 import axios from 'axios';
+import moment from "moment";
+import ShowSchedule from "../../components/ShowSchedule/ShowSchedule";
 
 
 class MovieDetail extends Component {
     state = {
-        movie: null
+        movie: null,
+        shows: null,
     };
 
     componentDidMount() {
-        // match - атрибут, передаваемый роутером, содержащий путь к этому компоненту
         const match = this.props.match;
-
         axios.get(MOVIES_URL + match.params.id)
             .then(response => {
                 console.log(response.data);
                 return response.data;
             })
-            .then(movie => this.setState({movie}))
+            .then(movie => {
+                this.setState({movie});
+                this.loadShows(movie.id)})
             .catch(error => console.log(error));
     }
 
@@ -45,6 +48,26 @@ class MovieDetail extends Component {
     };
 
 
+    loadShows = (movieId) => {
+        const startsAfter = moment().format('YYYY-MM-DD HH:mm');
+        const startsBefore = moment().add(3, 'days').format('YYYY-MM-DD');
+        {console.log(movieId, startsAfter, startsBefore)}
+
+        const query = encodeURI(`movie_id=${movieId}&starts_after=${startsAfter}&starts_before=${startsBefore}`);
+        axios.get(`${SHOWS_URL}?${query}`).then(response => {
+            console.log(response);
+            this.setState(prevState => {
+                let newState = {...prevState};
+                newState.shows = response.data;
+                return newState;
+            })
+        }).catch(error => {
+            console.log(error);
+            console.log(error.response);
+        });
+    };
+
+
     render() {
         if (!this.state.movie) return null;
 
@@ -67,6 +90,8 @@ class MovieDetail extends Component {
 
             <NavLink to='' className="btn btn-primary mr-2">Movies</NavLink>
             <button onClick={this.deleteMovie} className="btn btn-primary">Delete movie</button>
+            {console.log(this.state.shows)}
+            {this.state.shows ? <ShowSchedule shows={this.state.shows} name={this.state.shows.hall_name}/> : null}
         </div>;
     }
 }

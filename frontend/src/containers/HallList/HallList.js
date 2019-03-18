@@ -34,7 +34,7 @@ class HallList extends Component {
                 {aviableHalls.map(hall => {
                     return <div className='col-xs-12 col-sm-6 col-lg-4 mt-3' key={hall.id}>
 
-                        <Card header={hall.name} linkUrl={'/halls/' + hall.id} linkText={'About'} text={hall.description} className='h-100'/>
+                        <Card header={hall.name} link={'/halls/' + hall.id} text={hall.description} className='h-100'/>
 
 
                     </div>

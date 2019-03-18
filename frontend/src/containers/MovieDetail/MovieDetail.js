@@ -91,7 +91,7 @@ class MovieDetail extends Component {
             <NavLink to='' className="btn btn-primary mr-2">Movies</NavLink>
             <button onClick={this.deleteMovie} className="btn btn-primary">Delete movie</button>
             {console.log(this.state.shows)}
-            {this.state.shows ? <ShowSchedule shows={this.state.shows} name={this.state.shows.hall_name}/> : null}
+            {this.state.shows ? <ShowSchedule shows={this.state.shows} /> : null}
         </div>;
     }
 }

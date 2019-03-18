@@ -10,6 +10,7 @@ import HallList from "./containers/HallList/HallList";
 import HallDetail from "./containers/HallDetail/HallDetail";
 import HallEdit from "./containers/HallEdit/HallEdit";
 import HallAdd from "./containers/HallAdd/HallAdd";
+import Layout from "./components/Layout/Layout";
 
 
 class App extends Component {
@@ -17,22 +18,25 @@ class App extends Component {
         return (
             <div className="container">
                 <BrowserRouter>
-                    <Switch>
-                        <Route path="/halls/add" component={HallAdd}/>
-                        <Route path="/halls/:id/edit" component={HallEdit}/>
-                        <Route path="/halls/:id" component={HallDetail}/>
-                        <Route path="/halls/" component={HallList}/>
+                    <Layout>
+                        <Switch>
+                            <Route path="/halls/add" component={HallAdd}/>
+                            <Route path="/halls/:id/edit" component={HallEdit}/>
+                            <Route path="/halls/:id" component={HallDetail}/>
+                            <Route path="/halls/" component={HallList}/>
 
-                        <Route path="/movies/add" component={MovieAdd}/>
-                        <Route path="/movies/:id/edit" component={MovieEdit}/>
-                        <Route path="/movies/:id" component={MovieDetail}/>
-                        <Route path="" component={MovieList}/>
+                            <Route path="/movies/add" component={MovieAdd}/>
+                            <Route path="/movies/:id/edit" component={MovieEdit}/>
+                            <Route path="/movies/:id" component={MovieDetail}/>
+                            <Route path="" component={MovieList}/>
 
-                    </Switch>
+                        </Switch>
+                    </Layout>
                 </BrowserRouter>
             </div>
         );
     }
 }
+
 
 export default App;

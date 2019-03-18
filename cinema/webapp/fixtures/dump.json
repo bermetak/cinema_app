@@ -4,14 +4,14 @@
   "pk": 1,
   "fields": {
     "name": "Comedy",
-    "description": ""
+    "description": "Film genre"
   }
 },
 {
   "model": "webapp.category",
   "pk": 2,
   "fields": {
-    "name": "\u0411\u043e\u0435\u0432\u0438\u043a",
+    "name": "Adventure",
     "description": ""
   }
 },
@@ -19,44 +19,18 @@
   "model": "webapp.category",
   "pk": 3,
   "fields": {
-    "name": "\u0414\u0440\u0430\u043c\u0430",
-    "description": ""
+    "name": "Drama",
+    "description": "Dramatic films"
   }
 },
 {
   "model": "webapp.movie",
   "pk": 1,
   "fields": {
-    "name": "Movie",
-    "description": "",
-    "poster": "",
-    "release_date": "2019-02-28",
-    "finish_date": "2019-02-20",
-    "is_deleted": true,
-    "categories": []
-  }
-},
-{
-  "model": "webapp.movie",
-  "pk": 2,
-  "fields": {
-    "name": "\u041c\u0438\u0441\u0441\u0438\u044f \u043d\u0435\u0432\u044b\u043f\u043e\u043b\u043d\u0438\u043c\u0430",
-    "description": "\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435",
-    "poster": "posters/b13325e7921b8tp27s40x.jpg",
-    "release_date": "2019-03-26",
-    "finish_date": null,
-    "is_deleted": false,
-    "categories": []
-  }
-},
-{
-  "model": "webapp.movie",
-  "pk": 3,
-  "fields": {
-    "name": "\u041f\u043e\u0431\u0435\u0433 \u0438\u0437 \u0428\u043e\u0443\u0448\u0435\u043d\u043a\u0430",
-    "description": "\u0424\u0438\u043b\u044c\u043c",
-    "poster": "posters/iphone360_326.jpg",
-    "release_date": "2019-04-01",
+    "name": "The Shawshank Redemption",
+    "description": "1994",
+    "poster": "posters/ffff.jpg",
+    "release_date": "2019-03-18",
     "finish_date": null,
     "is_deleted": false,
     "categories": [
@@ -67,23 +41,41 @@
 },
 {
   "model": "webapp.movie",
-  "pk": 4,
+  "pk": 2,
   "fields": {
-    "name": "\u0414\u0436\u0443\u043c\u0430\u043d\u0434\u0436\u0438",
-    "description": "\u0410\u043c\u0435\u0440\u0438\u043a\u0430\u043d\u0441\u043a\u0438\u0439 \u0444\u0430\u043d\u0442\u0430\u0441\u0442\u0438\u043a\u043e-\u043f\u0440\u0438\u043a\u043b\u044e\u0447\u0435\u043d\u0447\u0435\u0441\u043a\u0438\u0439 \u0445\u0443\u0434\u043e\u0436\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u0439 \u0444\u0438\u043b\u044c\u043c 1995 \u0433\u043e\u0434\u0430 \u0440\u0435\u0436\u0438\u0441\u0441\u0451\u0440\u0430 \u0414\u0436\u043e \u0414\u0436\u043e\u043d\u0441\u0442\u043e\u043d\u0430, \u0430\u0434\u0430\u043f\u0442\u0430\u0446\u0438\u044f \u043e\u0434\u043d\u043e\u0438\u043c\u0451\u043d\u043d\u043e\u0433\u043e \u043f\u0440\u043e\u0438\u0437\u0432\u0435\u0434\u0435\u043d\u0438\u044f \u041a\u0440\u0438\u0441\u0430 \u0412\u0430\u043d \u041e\u043b\u043b\u0441\u0431\u0443\u0440\u0433\u0430.",
-    "poster": "posters/Jumanji.jpg",
-    "release_date": "2019-03-03",
+    "name": "Pulp Fiction",
+    "description": "1994, Quentin Tarantino",
+    "poster": "posters/8_CR10182268_AL_.jpg",
+    "release_date": "2019-03-10",
     "finish_date": null,
     "is_deleted": false,
-    "categories": []
+    "categories": [
+      1
+    ]
+  }
+},
+{
+  "model": "webapp.movie",
+  "pk": 3,
+  "fields": {
+    "name": "Forrest Gump",
+    "description": "The presidencies of Kennedy and Johnson, the events of Vietnam, Watergate, and other history unfold through the perspective of an Alabama man with an IQ of 75.",
+    "poster": "posters/ff.jpg",
+    "release_date": "2019-03-01",
+    "finish_date": null,
+    "is_deleted": false,
+    "categories": [
+      1,
+      3
+    ]
   }
 },
 {
   "model": "webapp.hall",
   "pk": 1,
   "fields": {
-    "name": "Big hall",
-    "description": "",
+    "name": "\u0411\u043e\u043b\u044c\u0448\u043e\u0439 \u0437\u0430\u043b",
+    "description": "\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435",
     "is_deleted": false
   }
 },
@@ -91,18 +83,18 @@
   "model": "webapp.hall",
   "pk": 2,
   "fields": {
-    "name": "IMAX",
-    "description": "IMAX 3D",
+    "name": "\u041c\u0430\u043b\u044b\u0439 \u0437\u0430\u043b",
+    "description": "",
     "is_deleted": false
   }
 },
 {
-  "model": "webapp.seat",
-  "pk": 1,
+  "model": "webapp.hall",
+  "pk": 3,
   "fields": {
-    "hall": 1,
-    "row": "1",
-    "seat": "5"
+    "name": "\u0417\u0430\u043b IMAX",
+    "description": "",
+    "is_deleted": false
   }
 },
 {
@@ -111,59 +103,42 @@
   "fields": {
     "movie": 1,
     "hall": 1,
-    "start": "2019-03-12T12:30:00Z",
-    "end": "2019-03-12T15:10:00Z",
-    "price": "160.00"
+    "start": "2019-03-21T10:00:00Z",
+    "end": "2019-03-21T13:20:00Z",
+    "price": "250.00"
   }
 },
 {
-  "model": "webapp.discount",
-  "pk": 1,
-  "fields": {
-    "name": "staff_discount",
-    "discount": "20.00",
-    "starts_date": null,
-    "ends_date": null
-  }
-},
-{
-  "model": "webapp.ticket",
-  "pk": 1,
-  "fields": {
-    "show": 1,
-    "seat": 1,
-    "discount": 1,
-    "returns": false
-  }
-},
-{
-  "model": "webapp.ticket",
+  "model": "webapp.show",
   "pk": 2,
   "fields": {
-    "show": 1,
-    "seat": 1,
-    "discount": 1,
-    "returns": false
+    "movie": 1,
+    "hall": 1,
+    "start": "2019-03-02T10:00:00Z",
+    "end": "2019-03-02T13:20:00Z",
+    "price": "250.00"
   }
 },
 {
-  "model": "webapp.ticket",
+  "model": "webapp.show",
   "pk": 3,
   "fields": {
-    "show": 1,
-    "seat": 1,
-    "discount": null,
-    "returns": false
+    "movie": 3,
+    "hall": 1,
+    "start": "2019-02-18T19:30:00Z",
+    "end": "2019-03-18T21:30:00Z",
+    "price": "450.00"
   }
 },
 {
-  "model": "webapp.ticket",
+  "model": "webapp.show",
   "pk": 4,
   "fields": {
-    "show": 1,
-    "seat": 1,
-    "discount": null,
-    "returns": false
+    "movie": 1,
+    "hall": 1,
+    "start": "2019-03-20T15:30:00Z",
+    "end": "2019-03-20T17:50:00Z",
+    "price": "450.00"
   }
 },
 {
@@ -458,96 +433,96 @@
   "model": "auth.permission",
   "pk": 25,
   "fields": {
-    "name": "Can add movie",
+    "name": "Can add category",
     "content_type": [
       "webapp",
-      "movie"
+      "category"
     ],
-    "codename": "add_movie"
+    "codename": "add_category"
   }
 },
 {
   "model": "auth.permission",
   "pk": 26,
   "fields": {
-    "name": "Can change movie",
+    "name": "Can change category",
     "content_type": [
       "webapp",
-      "movie"
+      "category"
     ],
-    "codename": "change_movie"
+    "codename": "change_category"
   }
 },
 {
   "model": "auth.permission",
   "pk": 27,
   "fields": {
-    "name": "Can delete movie",
+    "name": "Can delete category",
     "content_type": [
       "webapp",
-      "movie"
+      "category"
     ],
-    "codename": "delete_movie"
+    "codename": "delete_category"
   }
 },
 {
   "model": "auth.permission",
   "pk": 28,
   "fields": {
-    "name": "Can view movie",
+    "name": "Can view category",
     "content_type": [
       "webapp",
-      "movie"
+      "category"
     ],
-    "codename": "view_movie"
+    "codename": "view_category"
   }
 },
 {
   "model": "auth.permission",
   "pk": 29,
   "fields": {
-    "name": "Can add seat",
+    "name": "Can add discount",
     "content_type": [
       "webapp",
-      "seat"
+      "discount"
     ],
-    "codename": "add_seat"
+    "codename": "add_discount"
   }
 },
 {
   "model": "auth.permission",
   "pk": 30,
   "fields": {
-    "name": "Can change seat",
+    "name": "Can change discount",
     "content_type": [
       "webapp",
-      "seat"
+      "discount"
     ],
-    "codename": "change_seat"
+    "codename": "change_discount"
   }
 },
 {
   "model": "auth.permission",
   "pk": 31,
   "fields": {
-    "name": "Can delete seat",
+    "name": "Can delete discount",
     "content_type": [
       "webapp",
-      "seat"
+      "discount"
     ],
-    "codename": "delete_seat"
+    "codename": "delete_discount"
   }
 },
 {
   "model": "auth.permission",
   "pk": 32,
   "fields": {
-    "name": "Can view seat",
+    "name": "Can view discount",
     "content_type": [
       "webapp",
-      "seat"
+      "discount"
     ],
-    "codename": "view_seat"
+    "codename": "view_discount"
   }
 },
 {
@@ -602,149 +577,53 @@
   "model": "auth.permission",
   "pk": 37,
   "fields": {
-    "name": "Can add show",
+    "name": "Can add movie",
     "content_type": [
       "webapp",
-      "show"
+      "movie"
     ],
-    "codename": "add_show"
+    "codename": "add_movie"
   }
 },
 {
   "model": "auth.permission",
   "pk": 38,
   "fields": {
-    "name": "Can change show",
+    "name": "Can change movie",
     "content_type": [
       "webapp",
-      "show"
+      "movie"
     ],
-    "codename": "change_show"
+    "codename": "change_movie"
   }
 },
 {
   "model": "auth.permission",
   "pk": 39,
   "fields": {
-    "name": "Can delete show",
+    "name": "Can delete movie",
     "content_type": [
       "webapp",
-      "show"
+      "movie"
     ],
-    "codename": "delete_show"
+    "codename": "delete_movie"
   }
 },
 {
   "model": "auth.permission",
   "pk": 40,
   "fields": {
-    "name": "Can view show",
+    "name": "Can view movie",
     "content_type": [
       "webapp",
-      "show"
+      "movie"
     ],
-    "codename": "view_show"
+    "codename": "view_movie"
   }
 },
 {
   "model": "auth.permission",
   "pk": 41,
-  "fields": {
-    "name": "Can add category",
-    "content_type": [
-      "webapp",
-      "category"
-    ],
-    "codename": "add_category"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 42,
-  "fields": {
-    "name": "Can change category",
-    "content_type": [
-      "webapp",
-      "category"
-    ],
-    "codename": "change_category"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 43,
-  "fields": {
-    "name": "Can delete category",
-    "content_type": [
-      "webapp",
-      "category"
-    ],
-    "codename": "delete_category"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 44,
-  "fields": {
-    "name": "Can view category",
-    "content_type": [
-      "webapp",
-      "category"
-    ],
-    "codename": "view_category"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 45,
-  "fields": {
-    "name": "Can add discount",
-    "content_type": [
-      "webapp",
-      "discount"
-    ],
-    "codename": "add_discount"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 46,
-  "fields": {
-    "name": "Can change discount",
-    "content_type": [
-      "webapp",
-      "discount"
-    ],
-    "codename": "change_discount"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 47,
-  "fields": {
-    "name": "Can delete discount",
-    "content_type": [
-      "webapp",
-      "discount"
-    ],
-    "codename": "delete_discount"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 48,
-  "fields": {
-    "name": "Can view discount",
-    "content_type": [
-      "webapp",
-      "discount"
-    ],
-    "codename": "view_discount"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 49,
   "fields": {
     "name": "Can add reservation",
     "content_type": [
@@ -756,7 +635,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 50,
+  "pk": 42,
   "fields": {
     "name": "Can change reservation",
     "content_type": [
@@ -768,7 +647,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 51,
+  "pk": 43,
   "fields": {
     "name": "Can delete reservation",
     "content_type": [
@@ -780,7 +659,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 52,
+  "pk": 44,
   "fields": {
     "name": "Can view reservation",
     "content_type": [
@@ -788,6 +667,102 @@
       "reservation"
     ],
     "codename": "view_reservation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 45,
+  "fields": {
+    "name": "Can add seat",
+    "content_type": [
+      "webapp",
+      "seat"
+    ],
+    "codename": "add_seat"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 46,
+  "fields": {
+    "name": "Can change seat",
+    "content_type": [
+      "webapp",
+      "seat"
+    ],
+    "codename": "change_seat"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 47,
+  "fields": {
+    "name": "Can delete seat",
+    "content_type": [
+      "webapp",
+      "seat"
+    ],
+    "codename": "delete_seat"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 48,
+  "fields": {
+    "name": "Can view seat",
+    "content_type": [
+      "webapp",
+      "seat"
+    ],
+    "codename": "view_seat"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 49,
+  "fields": {
+    "name": "Can add show",
+    "content_type": [
+      "webapp",
+      "show"
+    ],
+    "codename": "add_show"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 50,
+  "fields": {
+    "name": "Can change show",
+    "content_type": [
+      "webapp",
+      "show"
+    ],
+    "codename": "change_show"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 51,
+  "fields": {
+    "name": "Can delete show",
+    "content_type": [
+      "webapp",
+      "show"
+    ],
+    "codename": "delete_show"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 52,
+  "fields": {
+    "name": "Can view show",
+    "content_type": [
+      "webapp",
+      "show"
+    ],
+    "codename": "view_show"
   }
 },
 {
@@ -842,8 +817,8 @@
   "model": "auth.user",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$120000$ejSoKYcSJYmZ$4BZ0H6qkRZ12O213m/C/4fF0SJpbtOtwp0zQTlAy4M8=",
-    "last_login": "2019-03-13T17:56:18.087Z",
+    "password": "pbkdf2_sha256$120000$GNBEOu0N5EfS$D9bijVxe2HpNZyGcj+AikGngSFtifPmPAwthHckrVjU=",
+    "last_login": "2019-03-18T04:25:03.201Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -851,7 +826,7 @@
     "email": "",
     "is_staff": true,
     "is_active": true,
-    "date_joined": "2019-02-28T13:32:21.269Z",
+    "date_joined": "2019-03-18T04:24:56.667Z",
     "groups": [],
     "user_permissions": []
   }

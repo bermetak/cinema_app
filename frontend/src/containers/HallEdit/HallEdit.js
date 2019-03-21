@@ -9,6 +9,7 @@ class HallEdit extends Component {
 
         alert: null,
         submitEnabled: true,
+        errors: {}
     };
 
     componentDidMount() {
@@ -29,6 +30,13 @@ class HallEdit extends Component {
             });
     }
 
+
+    showErrors = (name) => {
+        if (this.state.errors && this.state.errors[name]) {
+            return this.state.errors[name].map((error, index) => <p className="text-danger" key={index}>{error}</p>);
+        }
+        return null;
+    };
 
     updateHallState = (fieldName, value) => {
         this.setState(prevState => {
@@ -61,10 +69,16 @@ class HallEdit extends Component {
         return formData;
     };
 
-    formSubmitted = () => {
+    formSubmitted = (event) => {
+        event.preventDefault();
         const formData = this.gatherFormData();
         console.log();
-        return axios.put(HALL_URL + this.props.match.params.id + '/', formData)
+        return axios.put(HALL_URL + this.props.match.params.id + '/', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': 'Token ' + localStorage.getItem('auth-token')
+            }
+        })
             .then(response => {
                 const hall = response.data;
                 console.log(hall);
@@ -74,6 +88,10 @@ class HallEdit extends Component {
                 console.log(error);
                 console.log(error.response);
                 this.showErrorAlert(error.response);
+                this.setState({
+                    ...this.state,
+                    errors: error.response.data
+                })
             });
     };
 
@@ -95,11 +113,13 @@ class HallEdit extends Component {
                     <label className="font-weight-bold">Название</label>
                     <input type="text" className="form-control" name="name" value={name}
                            onChange={this.inputChanged}/>
+                           {this.showErrors('name')}
                 </div>
                 <div className="form-group">
                     <label>Описание</label>
                     <input type="text" className="form-control" name="description" value={description}
                            onChange={this.inputChanged}/>
+                           {this.showErrors('description')}
                 </div>
 
                 <button disabled={!this.state.submitEnabled} type="submit"

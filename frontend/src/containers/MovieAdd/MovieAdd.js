@@ -7,6 +7,7 @@ import MovieForm from "../../components/MovieForm/MovieForm";
 class MovieAdd extends Component {
     state = {
         alert: null,
+        errors: {}
     };
 
     showErrorAlert = (error) => {
@@ -17,13 +18,12 @@ class MovieAdd extends Component {
         });
     };
 
-    // сборка данных для запроса
     gatherFormData = (movie) => {
         let formData = new FormData();
         Object.keys(movie).forEach(key => {
             const value = movie[key];
             if (value) {
-                if(Array.isArray(value)) {
+                if (Array.isArray(value)) {
                     value.forEach(item => formData.append(key, item));
                 } else {
                     formData.append(key, value);
@@ -37,7 +37,10 @@ class MovieAdd extends Component {
         const formData = this.gatherFormData(movie);
 
         return axios.post(MOVIES_URL, formData, {
-            headers: {'Content-Type': 'multipart/form-data'}
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': 'Token ' + localStorage.getItem('auth-token')
+            }
         })
             .then(response => {
                 const movie = response.data;
@@ -48,14 +51,18 @@ class MovieAdd extends Component {
                 console.log(error);
                 console.log(error.response);
                 this.showErrorAlert(error.response);
+                this.setState({
+                    ...this.state,
+                    errors: error.response.data
+                })
             });
     };
 
     render() {
-        const alert = this.state.alert;
+        const {alert, errors} = this.state;
         return <Fragment>
             {alert ? <div className={"mb-2 alert alert-" + alert.type}>{alert.message}</div> : null}
-            <MovieForm onSubmit={this.formSubmitted}/>
+            <MovieForm onSubmit={this.formSubmitted} errors={errors}/>
         </Fragment>
     }
 }

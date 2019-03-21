@@ -15,23 +15,29 @@ class MovieForm extends Component {
             release_date: "",
             finish_date: "",
             poster: null,
-            categories: []
+            categories: [],
+            errors: {}
         };
 
         this.state = {
             categories: [],
             submitEnabled: true,
             movie: newMovie,
-            posterFileName: ""
+            posterFileName: "",
+            errors: {}
         };
 
-        if(this.props.movie) {
+        if (this.props.movie) {
             this.state.posterUrl = this.props.movie.poster;
 
             this.state.movie = this.props.movie;
+            this.state.errors = this.props.errors;
 
             this.state.movie.poster = null;
-        }
+        };
+
+
+
     }
 
     componentDidMount() {
@@ -47,9 +53,19 @@ class MovieForm extends Component {
             })
             .catch(error => {
                 console.log(error);
-                console.log(error.response)
+                console.log(error.response);
             });
     }
+
+    showErrors = (name) => {
+        if (this.state.errors && this.state.errors[name]) {
+            return this.state.errors[name].map((error, index) => <p className="text-danger" key={index}>{error}</p>);
+        }
+        if (this.props.errors && this.props.errors[name]) {
+            return this.props.errors[name].map((error, index) => <p className="text-danger" key={index}>{error}</p>);
+        }
+        return null;
+    };
 
     disableSubmit = () => {
         this.setState(prevState => {
@@ -78,7 +94,7 @@ class MovieForm extends Component {
     };
 
     getCategoryValue = () => {
-        if(this.state.categories.length > 0) {
+        if (this.state.categories.length > 0) {
             return this.state.movie.categories.map(id => {
                 const category = this.state.categories.find(category => category.id === id);
                 return {value: id, label: category.name};
@@ -127,7 +143,7 @@ class MovieForm extends Component {
     };
 
     submitForm = (event) => {
-        if(this.state.submitEnabled) {
+        if (this.state.submitEnabled) {
             event.preventDefault();
             this.disableSubmit();
             // console.log(this.state.movie)
@@ -154,11 +170,13 @@ class MovieForm extends Component {
                         <label className="font-weight-bold">Название</label>
                         <input type="text" className="form-control" name="name" value={name}
                                onChange={this.inputChanged}/>
+                        {this.showErrors('name')}
                     </div>
                     <div className="form-group">
                         <label>Описание</label>
                         <input type="text" className="form-control" name="description" value={description}
                                onChange={this.inputChanged}/>
+                        {this.showErrors('description')}
                     </div>
                     <div className="form-group">
                         <label className="font-weight-bold">Дата выхода</label>
@@ -168,6 +186,7 @@ class MovieForm extends Component {
                                         name="release_date"
                                         onChange={(date) => this.dateChanged('release_date', date)}/>
                         </div>
+                        {this.showErrors('release_date')}
                     </div>
                     <div className="form-group">
                         <label>Дата завершения проката</label>
@@ -175,18 +194,21 @@ class MovieForm extends Component {
                             <DatePicker dateFormat="yyyy-MM-dd" selected={finishDateSelected} className="form-control"
                                         name="finish_date" onChange={(date) => this.dateChanged('finish_date', date)}/>
                         </div>
+                        {this.showErrors('finish_date')}
                     </div>
                     <div className="form-group">
                         <label>Постер</label>
                         <div>
                             <input type="file" name="poster" value={posterFileName} onChange={this.fileChanged}/>
                             {this.state.posterUrl ? <a href={this.state.posterUrl}>Текущий файл</a> : null}
+                            {this.showErrors('poster')}
                         </div>
                     </div>
                     <div className="form-group">
                         <label>Категории</label>
                         <Select options={selectOptions} isMulti={true} name='categories' value={selectValue}
                                 onChange={(values) => this.selectChanged('categories', values)}/>
+                        {this.showErrors('categories')}
                     </div>
                     <button disabled={!submitEnabled} type="submit"
                             className="btn btn-primary">Сохранить

@@ -9,6 +9,7 @@ class MovieEdit extends Component {
         movie: null,
 
         alert: null,
+        errors: {}
     };
 
     componentDidMount() {
@@ -30,7 +31,6 @@ class MovieEdit extends Component {
             });
     }
 
-    // вывод сообщение об ошибке
     showErrorAlert = (error) => {
         this.setState(prevState => {
             let newState = {...prevState};
@@ -39,18 +39,16 @@ class MovieEdit extends Component {
         });
     };
 
-    // сборка данных для запроса
     gatherFormData = (movie) => {
         let formData = new FormData();
         Object.keys(movie).forEach(key => {
             const value = movie[key];
             if (value) {
                 if (Array.isArray(value)) {
-                    // для полей с несколькими значениями (категорий)
-                    // нужно добавить каждое значение отдельно
-                    value.forEach(item => {formData.append(key, item)
+                    value.forEach(item => {
+                        formData.append(key, item)
                         console.log(key, item)
-                });
+                    });
                     console.log(key, value);
                 } else {
                     formData.append(key, value);
@@ -64,7 +62,10 @@ class MovieEdit extends Component {
         const formData = this.gatherFormData(movie);
         console.log(movie);
         return axios.put(MOVIES_URL + this.props.match.params.id + '/', formData, {
-            headers: {'Content-Type': 'multipart/form-data'}
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': 'Token ' + localStorage.getItem('auth-token')
+            }
         })
             .then(response => {
                 const movie = response.data;
@@ -75,15 +76,20 @@ class MovieEdit extends Component {
                 console.log(error);
                 console.log(error.response);
                 this.showErrorAlert(error.response);
+                this.setState({
+                    ...this.state,
+                    errors: error.response.data
+                })
             });
     };
 
     render() {
-        const {alert, movie} = this.state;
+        const {alert, movie, errors} = this.state;
         return <Fragment>
             {console.log(this.state.movie)}
             {alert ? <div className={"mb-2 alert alert-" + alert.type}>{alert.message}</div> : null}
-            {movie ? <MovieForm onSubmit={this.formSubmitted} movie={movie}/> : null}
+            {movie ? <MovieForm onSubmit={this.formSubmitted} movie={movie} errors={errors}/> : null}
+
         </Fragment>
     }
 }

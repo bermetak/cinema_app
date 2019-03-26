@@ -18,13 +18,10 @@ class MovieList extends Component {
     }
 
     render() {
-        const aviableMovies = this.state.movies.filter(function (movie) {
-            return movie.is_deleted === false;
-        });
         return <Fragment>
             <p><NavLink to='/movies/add'>Добавить фильм</NavLink></p>
             <div className='row'>
-                {aviableMovies.map(movie => {
+                {this.state.movies.map(movie => {
                     return <div className='col-xs-12 col-sm-6 col-lg-4 mt-3'  key={movie.id}>
                         <MovieCard movie={movie}/>
                     </div>

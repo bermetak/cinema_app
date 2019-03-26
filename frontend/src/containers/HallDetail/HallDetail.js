@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {HALL_URL, SHOWS_URL} from "../../urls";
+import {HALL_URL, MOVIES_URL, SHOWS_URL} from "../../urls";
 import {NavLink} from "react-router-dom";
 import axios from 'axios';
 import moment from "moment";
@@ -27,14 +27,13 @@ class HallDetail extends Component {
     }
 
     deleteHall = (event) => {
-
-        event.preventDefault();
-        const newState = {...this.state};
-
-            newState.hall.is_deleted = true;
-            this.setState(newState);
-
-        return axios.put(HALL_URL + this.state.hall.id + '/', this.state.hall)
+        event.preventDefault()
+        return axios.delete(HALL_URL + this.state.hall.id, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': 'Token ' + localStorage.getItem('auth-token')
+            }
+        })
             .then(response => {
                 const hall = response.data;
                 console.log(hall);
@@ -46,7 +45,6 @@ class HallDetail extends Component {
             });
 
     };
-
 
     loadShows = (hallId) => {
         const startsAfter = moment().format('YYYY-MM-DD HH:mm');

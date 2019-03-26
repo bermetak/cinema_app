@@ -33,7 +33,7 @@ class MovieCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Movie
-        fields = ('url', 'id', 'name', 'description', 'poster', 'release_date', 'finish_date', 'categories', 'is_deleted')
+        fields = ('url', 'id', 'name', 'description', 'poster', 'release_date', 'finish_date', 'categories')
 
 
 class MovieSerializer(MovieCreateSerializer):
@@ -52,7 +52,7 @@ class HallSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Hall
-        fields = ('url', 'id', 'name', 'description', 'is_deleted')
+        fields = ('url', 'id', 'name', 'description')
 
 class SeatSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='api_v1:seat-detail')

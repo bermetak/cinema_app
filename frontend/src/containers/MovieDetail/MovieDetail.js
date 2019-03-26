@@ -27,14 +27,13 @@ class MovieDetail extends Component {
     }
 
     deleteMovie = (event) => {
-
-        event.preventDefault();
-        const newState = {...this.state};
-
-            newState.movie.is_deleted = true;
-            this.setState(newState);
-
-        return axios.put(MOVIES_URL + this.state.movie.id + '/', this.state.movie)
+        event.preventDefault()
+        return axios.delete(MOVIES_URL + this.state.movie.id, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': 'Token ' + localStorage.getItem('auth-token')
+            }
+        })
             .then(response => {
                 const movie = response.data;
                 console.log(movie);

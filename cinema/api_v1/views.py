@@ -37,11 +37,17 @@ class BaseViewSet(viewsets.ModelViewSet):
         permissions = super().get_permissions()
 
         if self.request.method in ["POST", "DELETE", "PUT", "PATCH"]:
-            permissions.append(IsAuthenticated(), IsAdminUser())
+            permissions.append(IsAuthenticated())
+            permissions.append(IsAdminUser())
         return permissions
 
 class MovieViewSet(BaseViewSet):
-    queryset = Movie.objects.all().order_by('id')
+    queryset = Movie.objects.active().order_by('-release_date')
+    serializer_class = MovieSerializer
+
+    def perform_destroy(self, instance):
+        instance.is_deleted = True
+        instance.save()
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
@@ -55,8 +61,12 @@ class CategoryViewSet(BaseViewSet):
     serializer_class = CategorySerializer
 
 class HallViewSet(BaseViewSet):
-    queryset = Hall.objects.all().order_by('name')
+    queryset = Hall.objects.active().order_by('name')
     serializer_class = HallSerializer
+
+    def perform_destroy(self, instance):
+        instance.is_deleted = True
+        instance.save()
 
 class SeatViewSet(BaseViewSet):
     queryset = Seat.objects.all().order_by('seat')

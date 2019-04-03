@@ -15,6 +15,7 @@ import Login from "./containers/Login/Login";
 import Logout from "./containers/Logout/Logout";
 import AuthRoute from "./components/AuthRoute/AuthRoute";
 import Register from "./containers/Register/Register";
+import Profile from "./containers/Profile/Profile";
 
 
 class App extends Component {
@@ -24,8 +25,11 @@ class App extends Component {
                 <BrowserRouter>
                     <Layout>
                         <Switch>
+                            <AuthRoute path="/users/:id" component={Profile}/>
+
                             <Route path="/login" component={Login}/>
-                            <Route path="/logout" component={Logout}/>
+                            <AuthRoute path="/logout" component={Logout}/>
+
                             <Route path="/register" component={Register}/>
 
                             <AuthRoute path="/halls/add" component={HallAdd}/>
@@ -36,7 +40,7 @@ class App extends Component {
                             <AuthRoute path="/movies/add" component={MovieAdd}/>
                             <AuthRoute path="/movies/:id/edit" component={MovieEdit}/>
                             <Route path="/movies/:id" component={MovieDetail}/>
-                            <Route path="" component={MovieList}/>
+                            <Route path="/" component={MovieList}/>
 
                         </Switch>
                     </Layout>

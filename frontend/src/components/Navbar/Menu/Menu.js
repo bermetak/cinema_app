@@ -13,6 +13,7 @@ class Menu extends Component {
     };
 
     render() {
+        const id = localStorage.getItem('id');
         const username = localStorage.getItem('username');
         const isAdmin = localStorage.getItem('is_admin');
         return <Fragment>
@@ -37,7 +38,7 @@ class Menu extends Component {
                 <ul className="navbar-nav ml-auto">
                     {username ? [
                         <li className="nav-item" key="username">
-                            <NavLink to='/profile'>
+                            <NavLink to={'/users/' + id}>
                                 <span className="navbar-text">Привет, {username}!</span>
                             </NavLink>
                         </li>,

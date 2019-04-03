@@ -12,6 +12,7 @@ router.register(r'shows', views.ShowViewSet)
 router.register(r'discounts', views.DiscountViewSet)
 router.register(r'tickets', views.TicketViewSet)
 router.register(r'reservations', views.ReservationViewSet)
+router.register(r'users', views.UserViewSet)
 
 
 app_name = 'api_v1'

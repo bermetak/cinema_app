@@ -4,13 +4,15 @@ from django.shortcuts import render
 from webapp.models import Movie, Category, Hall, Seat, Show, Discount, Ticket, Reservation
 from rest_framework import viewsets
 from api_v1.serializers import MovieSerializer, CategorySerializer, HallSerializer, SeatSerializer, ShowSerializer, \
-    DiscountSerializer, TicketSerializer, ReservationSerializer, MovieCreateSerializer, UserSerializer
+    DiscountSerializer, TicketSerializer, ReservationSerializer, MovieCreateSerializer, UserSerializer, UserRegisterSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 from django.contrib.auth.models import User
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, GenericAPIView
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
+
+
 
 
 class LoginView(ObtainAuthToken):
@@ -23,23 +25,49 @@ class LoginView(ObtainAuthToken):
         return Response({
             'token': token.key,
             'username': user.username,
+            'id': user.id,
             'is_admin': user.is_superuser,
             'is_staff': user.is_staff
         })
 
-class UserCreateView(CreateAPIView):
-    model = User
-    serializer_class = UserSerializer
-    permission_classes = [AllowAny]
-
 class BaseViewSet(viewsets.ModelViewSet):
+
     def get_permissions(self):
         permissions = super().get_permissions()
-
         if self.request.method in ["POST", "DELETE", "PUT", "PATCH"]:
             permissions.append(IsAuthenticated())
             permissions.append(IsAdminUser())
         return permissions
+
+class UserCreateView(CreateAPIView):
+    model = User
+    serializer_class = UserRegisterSerializer
+    permission_classes = [AllowAny]
+
+    def perform_create(self, serializer):
+        user = serializer.save()
+    #     token = self.create_token(user)
+    #
+    # def create_token(self, user):
+    #     return RegistrationToken.objects.create(user=user)
+
+class UserViewSet(viewsets.ModelViewSet):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+    def get_permissions(self):
+        permissions = super().get_permissions()
+        if self.request.method in ["POST", "DELETE", "PUT", "PATCH"]:
+            permissions.append(IsAuthenticated())
+        return permissions
+
+    def check_object_permissions(self, request, obj):
+        super().check_object_permissions(request, obj)
+        if request.method in ['PUT', 'PATCH', 'DELETE'] and obj != request.user:
+            self.permission_denied(request, 'Can not edit other users data!')
+
+
+
 
 class MovieViewSet(BaseViewSet):
     queryset = Movie.objects.active().order_by('-release_date')
@@ -92,8 +120,6 @@ class ShowViewSet(BaseViewSet):
     queryset = Show.objects.all()
     serializer_class = ShowSerializer
 
-    # фильтр сеансов показа фильмов по id фильма и по дате начала сеанса
-    # сюда требуется добавить фильтр по id зала.
     def get_queryset(self):
         queryset = self.queryset
         movie_id = self.request.query_params.get('movie_id', None)
